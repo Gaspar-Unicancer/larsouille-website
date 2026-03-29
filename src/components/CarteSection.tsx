@@ -17,14 +17,18 @@ interface Props {
 
 export default function CarteSection({ items }: Props) {
   const [activeTab, setActiveTab] = useState<MenuItem['category']>('vins')
-
   const filtered = items.filter((i) => i.category === activeTab)
 
   return (
     <section id="carte" className="py-20 md:py-28 bg-cream-dark">
       <div className="max-w-6xl mx-auto px-4">
         <AnimatedSection className="text-center mb-12">
-          <p className="font-script text-secondary text-lg mb-2">Ce qu&apos;on propose</p>
+          {/* Motifs en en-tete de section */}
+          <div className="flex justify-center gap-8 mb-5">
+            <Image src="/images/motif-panier.png"    alt="" width={72} height={72} className="mix-blend-multiply" />
+            <Image src="/images/motif-megaphone.png" alt="" width={72} height={72} className="mix-blend-multiply" />
+          </div>
+          <p className="font-script text-secondary text-xl mb-2">Ce qu&apos;on propose</p>
           <h2 className="font-heading text-4xl md:text-5xl text-ink mb-4">La carte</h2>
           <p className="font-body text-ink/60 max-w-md mx-auto text-sm">
             Sélection soignée, produits locaux et artisanaux. Le contenu varie selon les arrivages.
@@ -38,7 +42,7 @@ export default function CarteSection({ items }: Props) {
               <button
                 key={tab.key}
                 onClick={() => setActiveTab(tab.key)}
-                className={`flex items-center gap-1.5 px-4 py-2 rounded-sm font-body text-sm font-medium transition-all duration-200 ${
+                className={`flex items-center gap-1.5 px-4 py-2 font-body text-sm font-medium transition-all duration-200 ${
                   activeTab === tab.key
                     ? 'bg-primary text-cream shadow-sm'
                     : 'bg-white text-ink/70 hover:bg-cream border border-wood/40'
@@ -55,7 +59,7 @@ export default function CarteSection({ items }: Props) {
             {filtered.map((item, i) => (
               <div
                 key={i}
-                className="bg-cream/80 rounded-sm border border-wood/30 p-5 hover:shadow-md transition-shadow duration-200"
+                className="bg-cream/80 border border-wood/30 p-5 hover:shadow-md transition-shadow duration-200"
               >
                 <div className="flex justify-between items-start gap-2">
                   <h3 className="font-heading text-lg text-ink leading-snug">{item.nom}</h3>
@@ -74,15 +78,15 @@ export default function CarteSection({ items }: Props) {
             ))}
           </div>
 
-          {/* Photo accent */}
+          {/* Photo strip */}
           <div className="mt-12 grid grid-cols-2 md:grid-cols-4 gap-3">
             {[
-              { src: '/images/vins.png', alt: 'Vins nature sélectionnés' },
-              { src: '/images/bieres.webp', alt: 'Bières artisanales locales' },
+              { src: '/images/vins.png',     alt: 'Vins nature' },
+              { src: '/images/bieres.webp',  alt: 'Bieres artisanales' },
               { src: '/images/assiette.png', alt: 'Planche gourmande' },
-              { src: '/images/rhum.png', alt: 'Rhum artisanal' },
+              { src: '/images/rhum.png',     alt: 'Rhum artisanal' },
             ].map((photo) => (
-              <div key={photo.src} className="relative aspect-square rounded-sm overflow-hidden">
+              <div key={photo.src} className="relative aspect-square overflow-hidden">
                 <Image
                   src={photo.src}
                   alt={photo.alt}
@@ -96,11 +100,11 @@ export default function CarteSection({ items }: Props) {
         </AnimatedSection>
       </div>
 
-      {/* Divider */}
-      <div className="flex items-center justify-center mt-20 gap-4 opacity-20">
-        <div className="flex-1 max-w-xs h-px bg-wood" />
-        <Image src="/images/motif-panier.png" alt="" width={32} height={32} />
-        <div className="flex-1 max-w-xs h-px bg-wood" />
+      {/* Separateur avec motif visible */}
+      <div className="flex items-center justify-center mt-20 gap-6">
+        <div className="flex-1 max-w-xs h-px bg-wood/60" />
+        <Image src="/images/motif-panier.png" alt="" width={52} height={52} className="mix-blend-multiply" />
+        <div className="flex-1 max-w-xs h-px bg-wood/60" />
       </div>
     </section>
   )

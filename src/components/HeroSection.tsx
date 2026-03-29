@@ -7,73 +7,112 @@ interface Props {
 
 export default function HeroSection({ content }: Props) {
   return (
-    <section className="relative h-screen min-h-[600px] flex items-center justify-center overflow-hidden">
-      {/* Background image */}
-      <Image
-        src="/images/facade.jpg"
-        alt="L'Arsouille, bar de quartier brestois"
-        fill
-        priority
-        className="object-cover object-center"
-        sizes="100vw"
-      />
+    <section className="flex flex-col min-h-screen">
 
-      {/* Warm gradient overlay */}
-      <div className="absolute inset-0 bg-gradient-to-b from-ink/20 via-ink/40 to-ink/70" />
+      {/* PARTIE BRAND creme, DA au premier plan */}
+      <div className="bg-cream flex flex-col items-center justify-center flex-1 pt-20 pb-10 px-4 relative overflow-hidden">
 
-      {/* Decorative croquis motif */}
-      <div className="absolute top-1/4 right-8 md:right-16 opacity-10 hidden md:block">
+        {/* Logo */}
         <Image
-          src="/images/motif-megaphone.png"
-          alt=""
-          width={120}
-          height={120}
-          className="brightness-0 invert"
+          src="/images/logo.webp"
+          alt="L'Arsouille"
+          width={88}
+          height={88}
+          className="rounded-full mb-5 shadow-sm"
+          priority
         />
-      </div>
 
-      {/* Content */}
-      <div className="relative z-10 text-center px-4 max-w-2xl mx-auto">
-        {/* Script accent */}
-        <p className="font-script text-secondary text-xl md:text-2xl mb-2 opacity-90">
-          Brest · Quartier des 4 Moulins
-        </p>
+        {/* Filet decoratif */}
+        <div className="flex items-center gap-3 mb-6 w-full max-w-md">
+          <div className="flex-1 h-px bg-primary/25" />
+          <span className="font-script text-primary text-base leading-none">Brest · Quartier des 4 Moulins</span>
+          <div className="flex-1 h-px bg-primary/25" />
+        </div>
 
-        {/* Main title */}
-        <h1 className="font-heading text-5xl md:text-7xl font-bold text-cream mb-4 leading-tight">
-          {content.hero_title}
-        </h1>
+        {/* Titre flanque des motifs croquis desktop */}
+        <div className="flex items-center gap-6 lg:gap-12 mb-4">
+          <div className="hidden md:block shrink-0">
+            <Image
+              src="/images/motif-megaphone.png"
+              alt=""
+              width={190}
+              height={190}
+              className="mix-blend-multiply"
+            />
+          </div>
 
-        {/* Subtitle */}
-        <p className="font-body text-lg md:text-xl text-cream/90 mb-2 font-light tracking-wide">
+          <h1 className="font-heading text-primary font-bold leading-none text-center tracking-tight"
+              style={{ fontSize: 'clamp(3.5rem, 10vw, 7.5rem)' }}>
+            {content.hero_title}
+          </h1>
+
+          <div className="hidden md:block shrink-0">
+            <Image
+              src="/images/motif-panier.png"
+              alt=""
+              width={190}
+              height={190}
+              className="mix-blend-multiply"
+            />
+          </div>
+        </div>
+
+        {/* Motifs mobile sous le titre */}
+        <div className="flex md:hidden gap-10 mt-2 mb-4">
+          <Image src="/images/motif-megaphone.png" alt="" width={90} height={90} className="mix-blend-multiply" />
+          <Image src="/images/motif-panier.png"    alt="" width={90} height={90} className="mix-blend-multiply" />
+        </div>
+
+        {/* Sous-titre */}
+        <p className="font-script text-secondary text-2xl md:text-3xl mb-2 leading-snug text-center">
           {content.hero_subtitle}
         </p>
-        <p className="font-body text-base text-cream/70 mb-8 max-w-md mx-auto">
+        <p className="font-body text-ink/55 text-sm md:text-base max-w-xs md:max-w-sm text-center leading-relaxed mb-8">
           {content.hero_description}
         </p>
 
         {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-3 justify-center">
+        <div className="flex flex-col sm:flex-row gap-3">
           <a
             href="#carte"
-            className="bg-primary text-cream font-body font-medium px-7 py-3 rounded-sm hover:bg-[#7A1515] transition-colors duration-200 text-sm tracking-wide"
+            className="bg-primary text-cream font-body font-medium px-7 py-3 text-sm tracking-wide hover:bg-[#7A1515] transition-colors"
           >
             Voir la carte
           </a>
           <a
             href="#contact"
-            className="border border-cream/70 text-cream font-body font-medium px-7 py-3 rounded-sm hover:bg-cream/10 transition-colors duration-200 text-sm tracking-wide"
+            className="border border-primary text-primary font-body font-medium px-7 py-3 text-sm tracking-wide hover:bg-primary/5 transition-colors"
           >
             Nous retrouver
           </a>
         </div>
+
+        <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
+          <span className="block w-px h-7 bg-primary/30 animate-pulse" />
+        </div>
       </div>
 
-      {/* Scroll indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-1 text-cream/50">
-        <span className="font-body text-xs tracking-widest uppercase">Découvrir</span>
-        <span className="block w-px h-8 bg-cream/30 animate-pulse" />
+      {/* BANDE PHOTO contexte, ancrage lieu */}
+      <div className="relative shrink-0 overflow-hidden" style={{ height: '44vh' }}>
+        <Image
+          src="/images/facade.jpg"
+          alt="L'Arsouille — facade et equipe, Brest"
+          fill
+          priority
+          className="object-cover object-center"
+          sizes="100vw"
+        />
+        <div className="absolute inset-0 bg-ink/15" />
+        <a
+          href="https://www.instagram.com/cave_larsouille_brest"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="absolute bottom-4 right-4 bg-cream/90 text-ink font-body text-xs font-medium px-3 py-1.5 hover:bg-cream transition-colors"
+        >
+          @cave_larsouille_brest
+        </a>
       </div>
+
     </section>
   )
 }
