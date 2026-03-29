@@ -30,7 +30,7 @@ export default function HistoireSection({ content }: Props) {
                 alt=""
                 width={72}
                 height={72}
-                className="mix-blend-multiply shrink-0"
+                className="shrink-0"
               />
               <div className="font-script text-primary/70 text-lg leading-snug">
                 Vins nature · Bières craft · Produits locaux
@@ -48,7 +48,7 @@ export default function HistoireSection({ content }: Props) {
                   alt=""
                   width={130}
                   height={130}
-                  className="mix-blend-multiply"
+                  className=""
                 />
               </div>
 
@@ -74,7 +74,7 @@ export default function HistoireSection({ content }: Props) {
       {/* Separateur avec motifs bien visibles */}
       <div className="flex items-center justify-center mt-20 gap-6">
         <div className="flex-1 max-w-xs h-px bg-wood/60" />
-        <Image src="/images/motif-megaphone.png" alt="" width={52} height={52} className="mix-blend-multiply" />
+        <Image src="/images/motif-megaphone.png" alt="" width={52} height={52} className="" />
         <div className="flex-1 max-w-xs h-px bg-wood/60" />
       </div>
     </section>

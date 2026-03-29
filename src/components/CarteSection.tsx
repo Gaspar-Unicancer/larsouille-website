@@ -25,8 +25,8 @@ export default function CarteSection({ items }: Props) {
         <AnimatedSection className="text-center mb-12">
           {/* Motifs en en-tete de section */}
           <div className="flex justify-center gap-8 mb-5">
-            <Image src="/images/motif-panier.png"    alt="" width={72} height={72} className="mix-blend-multiply" />
-            <Image src="/images/motif-megaphone.png" alt="" width={72} height={72} className="mix-blend-multiply" />
+            <Image src="/images/motif-panier.png"    alt="" width={72} height={72} className="" />
+            <Image src="/images/motif-megaphone.png" alt="" width={72} height={72} className="" />
           </div>
           <p className="font-script text-secondary text-xl mb-2">Ce qu&apos;on propose</p>
           <h2 className="font-heading text-4xl md:text-5xl text-ink mb-4">La carte</h2>
@@ -103,7 +103,7 @@ export default function CarteSection({ items }: Props) {
       {/* Separateur avec motif visible */}
       <div className="flex items-center justify-center mt-20 gap-6">
         <div className="flex-1 max-w-xs h-px bg-wood/60" />
-        <Image src="/images/motif-panier.png" alt="" width={52} height={52} className="mix-blend-multiply" />
+        <Image src="/images/motif-panier.png" alt="" width={52} height={52} className="" />
         <div className="flex-1 max-w-xs h-px bg-wood/60" />
       </div>
     </section>

@@ -37,7 +37,7 @@ export default function HeroSection({ content }: Props) {
               alt=""
               width={190}
               height={190}
-              className="mix-blend-multiply"
+              className=""
             />
           </div>
 
@@ -52,15 +52,15 @@ export default function HeroSection({ content }: Props) {
               alt=""
               width={190}
               height={190}
-              className="mix-blend-multiply"
+              className=""
             />
           </div>
         </div>
 
         {/* Motifs mobile sous le titre */}
         <div className="flex md:hidden gap-10 mt-2 mb-4">
-          <Image src="/images/motif-megaphone.png" alt="" width={90} height={90} className="mix-blend-multiply" />
-          <Image src="/images/motif-panier.png"    alt="" width={90} height={90} className="mix-blend-multiply" />
+          <Image src="/images/motif-megaphone.png" alt="" width={90} height={90} className="" />
+          <Image src="/images/motif-panier.png"    alt="" width={90} height={90} className="" />
         </div>
 
         {/* Sous-titre */}
