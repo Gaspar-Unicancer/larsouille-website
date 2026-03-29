@@ -5,7 +5,7 @@
   --color-secondary: #D4874A;
   --color-wood: #C8B890;
   --color-ink: #1A0A0A;
-  --color-cream: #F0EDE5;
+  --color-cream: #EEEDE4;
   --color-cream-dark: #E2DDD4;
 
   --font-heading: var(--font-playfair), 'Playfair Display', Georgia, serif;
@@ -18,7 +18,7 @@
 }
 
 body {
-  background-color: #F0EDE5;
+  background-color: #EEEDE4;
   color: #1A0A0A;
   font-family: var(--font-body);
   -webkit-font-smoothing: antialiased;
