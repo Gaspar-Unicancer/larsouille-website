@@ -80,10 +80,12 @@ export default function HeroSection({ content }: Props) {
             Voir la carte
           </a>
           <a
-            href="#contact"
+            href="https://www.instagram.com/cave_larsouille_brest"
+            target="_blank"
+            rel="noopener noreferrer"
             className="border border-primary text-primary font-body font-medium px-7 py-3 text-sm tracking-wide hover:bg-primary/5 transition-colors"
           >
-            Nous retrouver
+            Nous suivre
           </a>
         </div>
 
