@@ -55,7 +55,7 @@ export default function NavBar() {
 
         {/* Desktop CTA */}
         <a
-          href="https://www.instagram.com/cave_larsouille_brest"
+          href="https://www.instagram.com/bar_larsouille_brest/"
           target="_blank"
           rel="noopener noreferrer"
           className="hidden md:inline-flex items-center gap-1.5 bg-primary text-cream text-sm font-medium px-4 py-2 rounded-sm hover:bg-[#7A1515] transition-colors duration-200"
@@ -95,7 +95,7 @@ export default function NavBar() {
           ))}
           <li className="pt-4">
             <a
-              href="https://www.instagram.com/cave_larsouille_brest"
+              href="https://www.instagram.com/bar_larsouille_brest/"
               target="_blank"
               rel="noopener noreferrer"
               className="inline-block bg-primary text-cream text-sm font-medium px-4 py-2 rounded-sm"

@@ -44,7 +44,7 @@ export default function Footer() {
             <li>Quartier des 4 Moulins, Brest</li>
             <li>
               <a
-                href="https://www.instagram.com/cave_larsouille_brest"
+                href="https://www.instagram.com/bar_larsouille_brest/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="hover:text-cream transition-colors"

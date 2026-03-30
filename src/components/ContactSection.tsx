@@ -52,7 +52,7 @@ export default function ContactSection({ content }: Props) {
             </div>
             <h3 className="font-heading text-lg text-ink mb-2">Instagram</h3>
             <a
-              href="https://www.instagram.com/cave_larsouille_brest"
+              href="https://www.instagram.com/bar_larsouille_brest/"
               target="_blank"
               rel="noopener noreferrer"
               className="font-body text-sm text-primary font-medium hover:underline"

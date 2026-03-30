@@ -80,7 +80,7 @@ export default function HeroSection({ content }: Props) {
             Voir la carte
           </a>
           <a
-            href="https://www.instagram.com/cave_larsouille_brest"
+            href="https://www.instagram.com/bar_larsouille_brest/"
             target="_blank"
             rel="noopener noreferrer"
             className="border border-primary text-primary font-body font-medium px-7 py-3 text-sm tracking-wide hover:bg-primary/5 transition-colors"
@@ -106,7 +106,7 @@ export default function HeroSection({ content }: Props) {
         />
         <div className="absolute inset-0 bg-ink/15" />
         <a
-          href="https://www.instagram.com/cave_larsouille_brest"
+          href="https://www.instagram.com/bar_larsouille_brest/"
           target="_blank"
           rel="noopener noreferrer"
           className="absolute bottom-4 right-4 bg-cream/90 text-ink font-body text-xs font-medium px-3 py-1.5 hover:bg-cream transition-colors"

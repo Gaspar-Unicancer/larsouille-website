@@ -50,7 +50,7 @@ export default function EvenementsSection({ events }: Props) {
 
                   {event.contact && (
                     <a
-                      href="https://www.instagram.com/cave_larsouille_brest"
+                      href="https://www.instagram.com/bar_larsouille_brest/"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="inline-flex items-center gap-1.5 text-secondary text-sm font-medium hover:underline"
@@ -66,7 +66,7 @@ export default function EvenementsSection({ events }: Props) {
 
         <AnimatedSection delay={2} className="text-center mt-10">
           <a
-            href="https://www.instagram.com/cave_larsouille_brest"
+            href="https://www.instagram.com/bar_larsouille_brest/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 border border-cream/40 text-cream font-body text-sm font-medium px-6 py-3 rounded-sm hover:bg-cream/10 transition-colors duration-200"

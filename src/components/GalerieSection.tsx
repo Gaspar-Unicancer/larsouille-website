@@ -45,7 +45,7 @@ export default function GalerieSection() {
 
         <AnimatedSection delay={2} className="text-center mt-10">
           <a
-            href="https://www.instagram.com/cave_larsouille_brest"
+            href="https://www.instagram.com/bar_larsouille_brest/"
             target="_blank"
             rel="noopener noreferrer"
             className="inline-flex items-center gap-2 font-body text-sm text-primary font-medium hover:underline"
