@@ -97,7 +97,7 @@ export default function HeroSection({ content }: Props) {
       {/* BANDE PHOTO contexte, ancrage lieu */}
       <div className="relative shrink-0 overflow-hidden" style={{ height: '44vh' }}>
         <Image
-          src="/images/facade.jpg"
+          src="/images/facade-2.png"
           alt="L'Arsouille — facade et equipe, Brest"
           fill
           priority
