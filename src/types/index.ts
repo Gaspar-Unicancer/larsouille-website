@@ -8,10 +8,23 @@ export interface SiteContent {
   email: string
   horaires: string
   instagram: string
+  // Sections carte
+  bar_title: string
+  bar_subtitle: string
+  bar_description: string
+  cave_title: string
+  cave_subtitle: string
+  cave_description: string
+  epicerie_title: string
+  epicerie_subtitle: string
+  epicerie_description: string
   // Images
   img_hero_bg: string
   img_logo: string
   img_histoire: string
+  img_bar: string
+  img_cave: string
+  img_epicerie: string
   img_galerie_1: string
   img_galerie_2: string
   img_galerie_3: string
@@ -25,10 +38,11 @@ export interface SiteContent {
 
 export interface MenuItem {
   id?: string
-  category: 'vins' | 'bieres' | 'spiritueux' | 'planches'
+  category: 'bar' | 'cave' | 'epicerie'
   nom: string
   description?: string
   prix?: string
+  img?: string
   position?: number
   active?: boolean
 }

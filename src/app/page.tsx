@@ -21,7 +21,7 @@ export default async function Home() {
       <main>
         <HeroSection content={content} />
         <HistoireSection content={content} />
-        <CarteSection items={menuItems} />
+        <CarteSection items={menuItems} content={content} />
         <EvenementsSection events={events} />
         <GalerieSection content={content} />
         <ContactSection content={content} />

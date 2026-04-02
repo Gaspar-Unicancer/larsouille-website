@@ -12,10 +12,8 @@ export default function HeroSection({ content }: Props) {
   return (
     <section className="flex flex-col min-h-screen">
 
-      {/* PARTIE BRAND creme, DA au premier plan */}
       <div className="bg-cream flex flex-col items-center justify-center flex-1 pt-20 pb-10 px-4 relative overflow-hidden">
 
-        {/* Logo */}
         <Image
           src={logoSrc}
           alt="L'Arsouille"
@@ -26,46 +24,32 @@ export default function HeroSection({ content }: Props) {
           unoptimized={logoSrc.startsWith('http')}
         />
 
-        {/* Filet decoratif */}
         <div className="flex items-center gap-3 mb-6 w-full max-w-md">
           <div className="flex-1 h-px bg-primary/25" />
-          <span className="font-script text-primary text-base leading-none">Brest · Quartier des 4 Moulins</span>
+          <span className="font-script text-primary text-base leading-none">Brest \u00b7 Quartier des 4 Moulins</span>
           <div className="flex-1 h-px bg-primary/25" />
         </div>
 
-        {/* Titre flanque des motifs croquis desktop */}
         <div className="flex items-center gap-6 lg:gap-12 mb-4">
           <div className="hidden md:block shrink-0">
-            <Image
-              src="/images/motif-megaphone.png"
-              alt=""
-              width={190}
-              height={190}
-            />
+            <Image src="/images/motif-megaphone.png" alt="" width={190} height={190} />
           </div>
-
-          <h1 className="font-heading text-primary font-bold leading-none text-center tracking-tight"
-              style={{ fontSize: 'clamp(3.5rem, 10vw, 7.5rem)' }}>
+          <h1
+            className="font-heading text-primary font-bold leading-none text-center tracking-tight"
+            style={{ fontSize: 'clamp(3.5rem, 10vw, 7.5rem)' }}
+          >
             {content.hero_title}
           </h1>
-
           <div className="hidden md:block shrink-0">
-            <Image
-              src="/images/motif-panier.png"
-              alt=""
-              width={190}
-              height={190}
-            />
+            <Image src="/images/motif-panier.png" alt="" width={190} height={190} />
           </div>
         </div>
 
-        {/* Motifs mobile sous le titre */}
         <div className="flex md:hidden gap-10 mt-2 mb-4">
           <Image src="/images/motif-megaphone.png" alt="" width={90} height={90} />
-          <Image src="/images/motif-panier.png"    alt="" width={90} height={90} />
+          <Image src="/images/motif-panier.png" alt="" width={90} height={90} />
         </div>
 
-        {/* Sous-titre */}
         <p className="font-script text-secondary text-2xl md:text-3xl mb-2 leading-snug text-center">
           {content.hero_subtitle}
         </p>
@@ -73,34 +57,45 @@ export default function HeroSection({ content }: Props) {
           {content.hero_description}
         </p>
 
-        {/* CTAs */}
-        <div className="flex flex-col sm:flex-row gap-3">
+        {/* 3 CTAs sections */}
+        <div className="flex flex-col sm:flex-row gap-3 mb-4">
           <a
-            href="#carte"
-            className="bg-primary text-cream font-body font-medium px-7 py-3 text-sm tracking-wide hover:bg-[#7A1515] transition-colors"
+            href="#bar"
+            className="bg-primary text-cream font-body font-medium px-6 py-3 text-sm tracking-wide hover:bg-[#7A1515] transition-colors text-center"
           >
-            Voir la carte
+            \ud83c\udf7a Le Bar
           </a>
           <a
-            href="https://www.instagram.com/bar_larsouille_brest/"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border border-primary text-primary font-body font-medium px-7 py-3 text-sm tracking-wide hover:bg-primary/5 transition-colors"
+            href="#cave"
+            className="border border-primary text-primary font-body font-medium px-6 py-3 text-sm tracking-wide hover:bg-primary/5 transition-colors text-center"
           >
-            Nous suivre
+            \ud83c\udf77 La Cave
+          </a>
+          <a
+            href="#epicerie"
+            className="border border-primary text-primary font-body font-medium px-6 py-3 text-sm tracking-wide hover:bg-primary/5 transition-colors text-center"
+          >
+            \ud83e\uddc0 L&apos;\u00c9picerie
           </a>
         </div>
+        <a
+          href="https://www.instagram.com/bar_larsouille_brest/"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="font-body text-xs text-primary/60 hover:text-primary transition-colors"
+        >
+          Nous suivre sur Instagram \u2192
+        </a>
 
         <div className="absolute bottom-4 left-1/2 -translate-x-1/2">
           <span className="block w-px h-7 bg-primary/30 animate-pulse" />
         </div>
       </div>
 
-      {/* BANDE PHOTO contexte, ancrage lieu */}
       <div className="relative shrink-0 overflow-hidden" style={{ height: '44vh' }}>
         <Image
           src={heroBgSrc}
-          alt="L'Arsouille — facade et equipe, Brest"
+          alt="L'Arsouille \u2014 facade et equipe, Brest"
           fill
           priority
           className="object-cover object-center"
