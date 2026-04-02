@@ -3,6 +3,7 @@ import { useState, useEffect, useCallback } from 'react'
 import { useRouter } from 'next/navigation'
 import Image from 'next/image'
 import { createClient } from '@supabase/supabase-js'
+import { imageSlots } from '@/lib/content'
 
 // ─── Supabase ────────────────────────────────────────────────────────────────
 function getSupabase() {
@@ -17,14 +18,14 @@ interface ContentRow { id: string; value: string }
 interface EventRow { id: string; titre: string; date: string; heure?: string; description?: string; contact?: string; active: boolean }
 interface MenuRow { id: string; category: string; nom: string; description?: string; prix?: string; position: number; active: boolean }
 
-// ─── Tabs ────────────────────────────────────────────────────────────────────
-type Tab = 'contenu' | 'horaires' | 'evenements' | 'carte'
+type Tab = 'contenu' | 'horaires' | 'evenements' | 'carte' | 'photos'
 
 const TABS: { key: Tab; label: string; icon: string }[] = [
   { key: 'contenu', label: 'Contenu', icon: '✏️' },
   { key: 'horaires', label: 'Horaires', icon: '🕐' },
   { key: 'evenements', label: 'Événements', icon: '📅' },
   { key: 'carte', label: 'Carte', icon: '🍷' },
+  { key: 'photos', label: 'Photos', icon: '🖼️' },
 ]
 
 const CONTENT_FIELDS = [
@@ -38,12 +39,12 @@ const CONTENT_FIELDS = [
   { id: 'instagram', label: 'Handle Instagram', multiline: false },
 ]
 
-// ─── Component ───────────────────────────────────────────────────────────────
 export default function AdminPage() {
   const router = useRouter()
   const [tab, setTab] = useState<Tab>('contenu')
   const [supabase] = useState(() => getSupabase())
   const [saving, setSaving] = useState(false)
+  const [uploading, setUploading] = useState<string | null>(null)
   const [toast, setToast] = useState('')
 
   // Content
@@ -95,9 +96,30 @@ export default function AdminPage() {
     showToast('Enregistré ✓')
   }
 
-  // ── Save horaires ──
   async function saveHoraires() {
     await saveField('horaires', horaires)
+  }
+
+  // ── Image upload ──
+  async function handleImageUpload(slotKey: string, file: File) {
+    setUploading(slotKey)
+    try {
+      const form = new FormData()
+      form.append('file', file)
+      form.append('slot', slotKey)
+      const res = await fetch('/api/admin/upload', { method: 'POST', body: form })
+      if (!res.ok) {
+        const data = await res.json()
+        showToast('Erreur : ' + (data.error ?? 'inconnue'))
+      } else {
+        const { url } = await res.json()
+        setContent(prev => ({ ...prev, [slotKey]: url }))
+        showToast('Image mise à jour ✓')
+      }
+    } catch {
+      showToast('Erreur réseau')
+    }
+    setUploading(null)
   }
 
   // ── Event CRUD ──
@@ -137,20 +159,27 @@ export default function AdminPage() {
     await fetchMenu()
   }
 
-  // ── Logout ──
   async function logout() {
     await fetch('/api/admin/logout', { method: 'POST' })
     router.push('/admin/login')
   }
 
   const isConfigured = !!supabase
+  const logoSrc = content['img_logo'] || '/images/logo.webp'
 
   return (
     <div className="min-h-screen bg-[#F8F7F5] font-body">
       {/* Header */}
       <header className="bg-white border-b border-gray-200 px-4 py-3 flex items-center justify-between">
         <div className="flex items-center gap-3">
-          <Image src="/images/logo.webp" alt="L'Arsouille" width={36} height={36} className="rounded-full" />
+          <Image
+            src={logoSrc}
+            alt="L'Arsouille"
+            width={36}
+            height={36}
+            className="rounded-full"
+            unoptimized={logoSrc.startsWith('http')}
+          />
           <div>
             <p className="font-heading text-sm text-gray-900">Administration</p>
             <p className="text-xs text-gray-400">L&apos;Arsouille — Brest</p>
@@ -166,21 +195,20 @@ export default function AdminPage() {
         </div>
       </header>
 
-      {/* Supabase warning */}
       {!isConfigured && (
         <div className="bg-amber-50 border-b border-amber-200 px-4 py-2 text-center text-xs text-amber-700">
-          ⚠️ Supabase non configuré — configurez <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_SUPABASE_URL</code> et <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_SUPABASE_ANON_KEY</code> dans .env.local
+          ⚠️ Supabase non configuré — ajoutez <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_SUPABASE_URL</code> et <code className="bg-amber-100 px-1 rounded">NEXT_PUBLIC_SUPABASE_ANON_KEY</code>
         </div>
       )}
 
       {/* Tabs */}
       <div className="bg-white border-b border-gray-200 px-4">
-        <div className="max-w-4xl mx-auto flex gap-0">
+        <div className="max-w-4xl mx-auto flex gap-0 overflow-x-auto">
           {TABS.map((t) => (
             <button
               key={t.key}
               onClick={() => setTab(t.key)}
-              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-colors ${
+              className={`flex items-center gap-1.5 px-4 py-3 text-sm font-medium border-b-2 transition-colors whitespace-nowrap ${
                 tab === t.key
                   ? 'border-[#8B1A1A] text-[#8B1A1A]'
                   : 'border-transparent text-gray-500 hover:text-gray-800'
@@ -193,7 +221,6 @@ export default function AdminPage() {
         </div>
       </div>
 
-      {/* Content */}
       <main className="max-w-4xl mx-auto px-4 py-8">
 
         {/* ── CONTENU ── */}
@@ -259,7 +286,6 @@ export default function AdminPage() {
           <div className="space-y-6">
             <h2 className="font-heading text-xl text-gray-900">Événements</h2>
 
-            {/* Ajouter */}
             <div className="bg-white rounded border border-gray-200 p-4">
               <h3 className="text-sm font-medium text-gray-700 mb-3">Ajouter un événement</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -274,7 +300,6 @@ export default function AdminPage() {
               </button>
             </div>
 
-            {/* Liste */}
             <div className="space-y-3">
               {events.length === 0 && <p className="text-sm text-gray-400 text-center py-4">Aucun événement</p>}
               {events.map((ev) => (
@@ -283,6 +308,7 @@ export default function AdminPage() {
                     <p className="font-medium text-sm text-gray-900">{ev.titre}</p>
                     <p className="text-xs text-gray-400 mt-0.5">{ev.date}{ev.heure ? ` — ${ev.heure}` : ''}</p>
                     {ev.description && <p className="text-xs text-gray-500 mt-1">{ev.description}</p>}
+                    {ev.contact && <p className="text-xs text-gray-400 mt-0.5">{ev.contact}</p>}
                   </div>
                   <div className="flex items-center gap-2 shrink-0">
                     <button onClick={() => toggleEvent(ev.id, !ev.active)} className="text-xs text-gray-400 hover:text-gray-700">
@@ -301,7 +327,6 @@ export default function AdminPage() {
           <div className="space-y-6">
             <h2 className="font-heading text-xl text-gray-900">Carte & Menu</h2>
 
-            {/* Ajouter */}
             <div className="bg-white rounded border border-gray-200 p-4">
               <h3 className="text-sm font-medium text-gray-700 mb-3">Ajouter un article</h3>
               <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
@@ -321,7 +346,6 @@ export default function AdminPage() {
               </button>
             </div>
 
-            {/* Liste par catégorie */}
             {(['vins', 'bieres', 'spiritueux', 'planches'] as const).map((cat) => {
               const catLabels = { vins: 'Vins nature', bieres: 'Bières craft', spiritueux: 'Spiritueux', planches: 'Planches & Bouchées' }
               const catItems = menuItems.filter(i => i.category === cat)
@@ -329,11 +353,14 @@ export default function AdminPage() {
                 <div key={cat}>
                   <h3 className="text-xs font-medium text-gray-400 uppercase tracking-wide mb-2">{catLabels[cat]}</h3>
                   <div className="space-y-2">
-                    {catItems.length === 0 && <p className="text-xs text-gray-300 py-2">Aucun article — les données par défaut sont affichées.</p>}
+                    {catItems.length === 0 && <p className="text-xs text-gray-300 py-2">Aucun article — données par défaut affichées.</p>}
                     {catItems.map((item) => (
                       <div key={item.id} className="bg-white rounded border border-gray-200 px-4 py-3 flex gap-3 items-start">
                         <div className="flex-1 min-w-0">
-                          <p className="text-sm font-medium text-gray-900">{item.nom}{item.prix ? <span className="ml-2 text-xs text-[#8B1A1A]">{item.prix}</span> : null}</p>
+                          <p className="text-sm font-medium text-gray-900">
+                            {item.nom}
+                            {item.prix ? <span className="ml-2 text-xs text-[#8B1A1A]">{item.prix}</span> : null}
+                          </p>
                           {item.description && <p className="text-xs text-gray-500 mt-0.5">{item.description}</p>}
                         </div>
                         <button onClick={() => deleteMenuItem(item.id)} className="text-xs text-red-400 hover:text-red-600 shrink-0">Supprimer</button>
@@ -345,11 +372,78 @@ export default function AdminPage() {
             })}
           </div>
         )}
+
+        {/* ── PHOTOS ── */}
+        {tab === 'photos' && (
+          <div className="space-y-4">
+            <div>
+              <h2 className="font-heading text-xl text-gray-900 mb-1">Photos du site</h2>
+              <p className="text-sm text-gray-400">Formats acceptés : JPG, PNG, WebP. L&apos;image est mise en ligne instantanément.</p>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              {imageSlots.map((slot) => {
+                const currentSrc = content[slot.key] || slot.defaultSrc
+                const isUploading = uploading === slot.key
+
+                return (
+                  <div key={slot.key} className="bg-white rounded border border-gray-200 overflow-hidden">
+                    {/* Aperçu */}
+                    <div className="relative aspect-video bg-gray-100 overflow-hidden">
+                      <Image
+                        src={currentSrc}
+                        alt={slot.label}
+                        fill
+                        className="object-cover"
+                        sizes="(max-width: 640px) 100vw, 50vw"
+                        unoptimized={currentSrc.startsWith('http')}
+                      />
+                      {isUploading && (
+                        <div className="absolute inset-0 bg-white/80 flex items-center justify-center">
+                          <div className="w-6 h-6 border-2 border-[#8B1A1A] border-t-transparent rounded-full animate-spin" />
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Infos + upload */}
+                    <div className="p-4">
+                      <p className="font-medium text-sm text-gray-900">{slot.label}</p>
+                      <p className="text-xs text-gray-400 mt-0.5">{slot.description}</p>
+                      <p className="text-xs text-gray-300 mt-1 font-mono">{slot.format}</p>
+                      <label
+                        className={`mt-3 flex items-center justify-center gap-2 cursor-pointer border-2 border-dashed rounded py-2.5 text-sm font-medium transition-colors ${
+                          isUploading
+                            ? 'border-gray-200 text-gray-300 cursor-not-allowed'
+                            : 'border-[#8B1A1A]/30 text-[#8B1A1A] hover:border-[#8B1A1A] hover:bg-[#8B1A1A]/5'
+                        }`}
+                      >
+                        <svg width="14" height="14" fill="none" stroke="currentColor" strokeWidth="2" viewBox="0 0 24 24">
+                          <path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M17 8l-5-5-5 5M12 3v12" />
+                        </svg>
+                        {isUploading ? 'Upload en cours…' : 'Changer l\'image'}
+                        <input
+                          type="file"
+                          accept="image/jpeg,image/webp,image/png"
+                          className="sr-only"
+                          disabled={isUploading || !isConfigured}
+                          onChange={(e) => {
+                            const file = e.target.files?.[0]
+                            if (file) handleImageUpload(slot.key, file)
+                          }}
+                        />
+                      </label>
+                    </div>
+                  </div>
+                )
+              })}
+            </div>
+          </div>
+        )}
       </main>
 
       {/* Toast */}
       {toast && (
-        <div className="fixed bottom-4 right-4 bg-gray-900 text-white text-sm px-4 py-2 rounded shadow-lg">
+        <div className="fixed bottom-4 right-4 bg-gray-900 text-white text-sm px-4 py-2 rounded shadow-lg z-50">
           {toast}
         </div>
       )}

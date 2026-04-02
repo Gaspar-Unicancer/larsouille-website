@@ -23,7 +23,7 @@ export default async function Home() {
         <HistoireSection content={content} />
         <CarteSection items={menuItems} />
         <EvenementsSection events={events} />
-        <GalerieSection />
+        <GalerieSection content={content} />
         <ContactSection content={content} />
       </main>
       <Footer />

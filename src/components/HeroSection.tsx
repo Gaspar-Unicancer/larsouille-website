@@ -6,6 +6,9 @@ interface Props {
 }
 
 export default function HeroSection({ content }: Props) {
+  const logoSrc = content.img_logo || '/images/logo.webp'
+  const heroBgSrc = content.img_hero_bg || '/images/facade-2.png'
+
   return (
     <section className="flex flex-col min-h-screen">
 
@@ -14,12 +17,13 @@ export default function HeroSection({ content }: Props) {
 
         {/* Logo */}
         <Image
-          src="/images/logo.webp"
+          src={logoSrc}
           alt="L'Arsouille"
           width={88}
           height={88}
           className="rounded-full mb-5 shadow-sm"
           priority
+          unoptimized={logoSrc.startsWith('http')}
         />
 
         {/* Filet decoratif */}
@@ -37,7 +41,6 @@ export default function HeroSection({ content }: Props) {
               alt=""
               width={190}
               height={190}
-              className=""
             />
           </div>
 
@@ -52,15 +55,14 @@ export default function HeroSection({ content }: Props) {
               alt=""
               width={190}
               height={190}
-              className=""
             />
           </div>
         </div>
 
         {/* Motifs mobile sous le titre */}
         <div className="flex md:hidden gap-10 mt-2 mb-4">
-          <Image src="/images/motif-megaphone.png" alt="" width={90} height={90} className="" />
-          <Image src="/images/motif-panier.png"    alt="" width={90} height={90} className="" />
+          <Image src="/images/motif-megaphone.png" alt="" width={90} height={90} />
+          <Image src="/images/motif-panier.png"    alt="" width={90} height={90} />
         </div>
 
         {/* Sous-titre */}
@@ -97,12 +99,13 @@ export default function HeroSection({ content }: Props) {
       {/* BANDE PHOTO contexte, ancrage lieu */}
       <div className="relative shrink-0 overflow-hidden" style={{ height: '44vh' }}>
         <Image
-          src="/images/facade-2.png"
+          src={heroBgSrc}
           alt="L'Arsouille — facade et equipe, Brest"
           fill
           priority
           className="object-cover object-center"
           sizes="100vw"
+          unoptimized={heroBgSrc.startsWith('http')}
         />
         <div className="absolute inset-0 bg-ink/15" />
         <a

@@ -8,6 +8,19 @@ export interface SiteContent {
   email: string
   horaires: string
   instagram: string
+  // Images
+  img_hero_bg: string
+  img_logo: string
+  img_histoire: string
+  img_galerie_1: string
+  img_galerie_2: string
+  img_galerie_3: string
+  img_galerie_4: string
+  img_galerie_5: string
+  img_galerie_6: string
+  img_galerie_7: string
+  img_galerie_8: string
+  img_galerie_9: string
 }
 
 export interface MenuItem {

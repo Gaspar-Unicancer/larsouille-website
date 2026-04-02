@@ -1,6 +1,93 @@
 import { createClient } from '@supabase/supabase-js'
 import type { SiteContent, MenuItem, Event } from '@/types'
 
+export const imageSlots = [
+  {
+    key: 'img_hero_bg',
+    label: 'Image Hero (fond)',
+    description: 'Grande photo en fond de la section héro',
+    format: '16:9 recommandé',
+    defaultSrc: '/images/facade-2.png',
+  },
+  {
+    key: 'img_logo',
+    label: 'Logo',
+    description: 'Logo rond affiché en tête de page et dans l\'admin',
+    format: 'Carré, min 200×200px',
+    defaultSrc: '/images/logo.webp',
+  },
+  {
+    key: 'img_histoire',
+    label: 'Photo Notre histoire',
+    description: 'Photo affichée dans la section Notre histoire',
+    format: '4:5 recommandé',
+    defaultSrc: '/images/tireuse.png',
+  },
+  {
+    key: 'img_galerie_1',
+    label: 'Galerie — Photo 1',
+    description: 'Intérieur, verre de vin',
+    format: '1:1',
+    defaultSrc: '/images/interieur.png',
+  },
+  {
+    key: 'img_galerie_2',
+    label: 'Galerie — Photo 2',
+    description: 'Ambiance bar, tireuse',
+    format: '1:1',
+    defaultSrc: '/images/tireuse.png',
+  },
+  {
+    key: 'img_galerie_3',
+    label: 'Galerie — Photo 3',
+    description: 'Planche charcuterie',
+    format: '1:1',
+    defaultSrc: '/images/assiette.png',
+  },
+  {
+    key: 'img_galerie_4',
+    label: 'Galerie — Photo 4',
+    description: 'Assiettes gourmandes',
+    format: '1:1',
+    defaultSrc: '/images/plats.png',
+  },
+  {
+    key: 'img_galerie_5',
+    label: 'Galerie — Photo 5',
+    description: "L'équipe, façade",
+    format: '1:1',
+    defaultSrc: '/images/facade.jpg',
+  },
+  {
+    key: 'img_galerie_6',
+    label: 'Galerie — Photo 6',
+    description: 'Bières artisanales',
+    format: '1:1',
+    defaultSrc: '/images/bieres.webp',
+  },
+  {
+    key: 'img_galerie_7',
+    label: 'Galerie — Photo 7',
+    description: 'Vins nature',
+    format: '1:1',
+    defaultSrc: '/images/vins.png',
+  },
+  {
+    key: 'img_galerie_8',
+    label: 'Galerie — Photo 8',
+    description: 'Rhum artisanal',
+    format: '1:1',
+    defaultSrc: '/images/rhum.png',
+  },
+  {
+    key: 'img_galerie_9',
+    label: 'Galerie — Photo 9',
+    description: 'Ardoise nouveautés',
+    format: '1:1',
+    defaultSrc: '/images/nouveaute.png',
+  },
+]
+
 const DEFAULT_CONTENT: SiteContent = {
   hero_title: "L'Arsouille",
   hero_subtitle: 'Bar de quartier brestois',
@@ -13,6 +100,18 @@ const DEFAULT_CONTENT: SiteContent = {
   email: '',
   horaires: 'Horaires à venir — retrouvez-nous sur Instagram',
   instagram: '@cave_larsouille_brest',
+  img_hero_bg: '',
+  img_logo: '',
+  img_histoire: '',
+  img_galerie_1: '',
+  img_galerie_2: '',
+  img_galerie_3: '',
+  img_galerie_4: '',
+  img_galerie_5: '',
+  img_galerie_6: '',
+  img_galerie_7: '',
+  img_galerie_8: '',
+  img_galerie_9: '',
 }
 
 const DEFAULT_MENU: MenuItem[] = [
@@ -36,14 +135,14 @@ const DEFAULT_EVENTS: Event[] = [
     titre: 'Concert Unplugged — My Jonas Cooking',
     date: 'À venir',
     heure: '20h',
-    description: 'Soirée musicale en format acoustique dans la salle de L\'Arsouille.',
+    description: "Soirée musicale en format acoustique dans la salle de L'Arsouille.",
     contact: '@cave_larsouille_brest',
   },
   {
     titre: 'Soirée Vins & Fromages',
     date: 'À venir',
     heure: '18h',
-    description: 'Dégustation guidée de vins nature accompagnés d\'une sélection de fromages artisanaux.',
+    description: "Dégustation guidée de vins nature accompagnés d'une sélection de fromages artisanaux.",
     contact: '@cave_larsouille_brest',
   },
 ]

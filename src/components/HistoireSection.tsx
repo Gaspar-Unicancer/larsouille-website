@@ -7,6 +7,8 @@ interface Props {
 }
 
 export default function HistoireSection({ content }: Props) {
+  const histoireSrc = content.img_histoire || '/images/tireuse.png'
+
   return (
     <section id="histoire" className="py-20 md:py-28 bg-cream">
       <div className="max-w-6xl mx-auto px-4">
@@ -23,7 +25,6 @@ export default function HistoireSection({ content }: Props) {
               {content.histoire_text}
             </p>
 
-            {/* Motif panier en decoration de texte */}
             <div className="flex items-center gap-4 mt-10">
               <Image
                 src="/images/motif-panier.png"
@@ -38,31 +39,29 @@ export default function HistoireSection({ content }: Props) {
             </div>
           </AnimatedSection>
 
-          {/* Photo + motif megaphone visible */}
+          {/* Photo */}
           <AnimatedSection delay={1}>
             <div className="relative">
-              {/* Motif megaphone en haut a droite de la photo, grand et visible */}
               <div className="absolute -top-8 -right-6 z-10">
                 <Image
                   src="/images/motif-megaphone.png"
                   alt=""
                   width={130}
                   height={130}
-                  className=""
                 />
               </div>
 
               <div className="relative aspect-[4/5] overflow-hidden shadow-lg">
                 <Image
-                  src="/images/tireuse.png"
+                  src={histoireSrc}
                   alt="Ambiance bar L'Arsouille"
                   fill
                   className="object-cover"
                   sizes="(max-width: 768px) 100vw, 50vw"
+                  unoptimized={histoireSrc.startsWith('http')}
                 />
               </div>
 
-              {/* Badge */}
               <div className="absolute -bottom-3 right-4 bg-primary text-cream font-script text-sm px-4 py-2 shadow-md">
                 Brest, depuis 2024
               </div>
@@ -71,10 +70,9 @@ export default function HistoireSection({ content }: Props) {
         </div>
       </div>
 
-      {/* Separateur avec motifs bien visibles */}
       <div className="flex items-center justify-center mt-20 gap-6">
         <div className="flex-1 max-w-xs h-px bg-wood/60" />
-        <Image src="/images/motif-megaphone.png" alt="" width={52} height={52} className="" />
+        <Image src="/images/motif-megaphone.png" alt="" width={52} height={52} />
         <div className="flex-1 max-w-xs h-px bg-wood/60" />
       </div>
     </section>
